@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>RSA demo</title>
+
+	<link rel="shortcut icon" href="https://franatrtur.github.io/public/img/square_slovanak.png"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<script defer src="script.js"></script>
+</head>
+<body>
+	<div id="page">
+		<div id="cont1" class="card">
+			<h1>1) Výběr prvočísel a <span class="equation">e</span></h1>
+			<span class="equation"><b>p</b> = <span class="pval">0</span></span>
+			<br><input type="range" class="slider" id="pslider">
+			<br>
+			<span class="equation"><b>q</b> = <span class="qval">0</span></span>
+			<br><input type="range" class="slider" id="qslider">
+			<br>
+			<span class="equation"><b>e</b> = <span class="eval">0</span></span>
+		</div>
+		<div id="cont2" class="card">
+			<h1>2) Výpočet hodnot</h1>
+			<span class="equation"><b>n</b> = pq = <span class="nval">0</span></span><br><br>
+			<span class="equation"><b>𝜑(n)</b> = (p - 1)(q - 1) = <span class="phival">0</span></span><br><br>
+			<span class="equation"><b>d</b> = e<sup>-1</sup> mod(𝜑(n)) = <span class="dval">0</span></span>
+		</div>
+		<div id="cont3" class="card">
+			<h1>3) Vytvoření klíčů</h1>
+			Veřejný klíč
+			<span class="equation"> = (<span class="eval">0</span>, <span class="nval">0</span>)</span><br><br>
+			Soukromý klíč
+			<span class="equation"> = (<span class="dval">0</span>, <span class="nval">0</span>)</span><br>
+		</div>
+	</div>
+</body>
+</html>
