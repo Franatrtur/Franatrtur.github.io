@@ -63,6 +63,7 @@ class RSAKeyPair {
         let p = prime1, q = prime2;
         let n = p * q;
         let totient = (p - 1) * (q - 1);
+        let d = modular_inversion(e, totient);
         return new this(new RSAKey(e, n), new RSAKey(d, n));
     }
 }
@@ -70,6 +71,7 @@ class RSAKeyPair {
 
 $("#pslider").change(() => process())
 $("#qslider").change(() => process())
+$("#minput").change(() => process())
 
 $("#pslider").attr("min", 0).attr("max", Primes.length - 1).val(10).change()
 $("#qslider").attr("min", 0).attr("max", Primes.length - 1).val(5).change()
@@ -87,4 +89,14 @@ function process(){
 	$(".phival").text(phi)
 	let d = modular_inversion(7, phi)
 	$(".dval").text(d)
+    let m = $("#minput").val()
+    $("#minput").attr("min", 0)
+    $("#minput").attr("max", n-1)
+    let kp = RSAKeyPair.generate(p,q,e)
+    $(".mval").text(m)
+    let c = kp.publicKey.process(m)
+    $(".cval").text(c)
+    let m2 = kp.privateKey.process(c)
+    $(".m2val").text(m)
 }
+    $("#minput").val(5).change()

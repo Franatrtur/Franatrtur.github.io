@@ -9,13 +9,18 @@
 	<link rel="shortcut icon" href="https://franatrtur.github.io/public/img/square_slovanak.png"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 	<link rel="stylesheet" type="text/css" href="style.css"/>
 	<script defer src="script.js"></script>
 </head>
 <body>
+	<h2>Jak probíhá šifrování RSA?</h2>
 	<div id="page">
 		<div id="cont1" class="card">
-			<h1>1) Výběr prvočísel a <span class="equation">e</span></h1>
+			<h1>Výběr prvočísel a <span class="equation">e</span></h1>
 			<span class="equation"><b>p</b> = <span class="pval">0</span></span>
 			<br><input type="range" class="slider" id="pslider">
 			<br>
@@ -25,17 +30,30 @@
 			<span class="equation"><b>e</b> = <span class="eval">0</span></span>
 		</div>
 		<div id="cont2" class="card">
-			<h1>2) Výpočet hodnot</h1>
+			<h1>Výpočet hodnot</h1>
 			<span class="equation"><b>n</b> = pq = <span class="nval">0</span></span><br><br>
 			<span class="equation"><b>𝜑(n)</b> = (p - 1)(q - 1) = <span class="phival">0</span></span><br><br>
 			<span class="equation"><b>d</b> = e<sup>-1</sup> mod(𝜑(n)) = <span class="dval">0</span></span>
 		</div>
 		<div id="cont3" class="card">
-			<h1>3) Vytvoření klíčů</h1>
+			<h1>Vytvoření klíčů</h1>
 			Veřejný klíč
 			<span class="equation"> = (<span class="eval">0</span>, <span class="nval">0</span>)</span><br><br>
 			Soukromý klíč
 			<span class="equation"> = (<span class="dval">0</span>, <span class="nval">0</span>)</span><br>
+		</div>
+		<div id="cont4">
+			<div class="card">
+				<h1>Zašifrování zprávy</h1>
+				<span class="equation"><b>m</b> = </span><input type="number" class="slider" id="minput"><br><br>
+				<span class="equation"><b>c</b> = m<sup>e</sup> mod n = <span class="mval">0</span><sup><span class="eval">0</span></sup> mod <span class="nval">0</span> = <span class="cval">0</span></span><br><br>
+			</div>
+			<div id="arrow"><div class="cval" id="sent"></div>→</div>
+			<div class="card">
+				<h1>Dešifrování zprávy</h1>
+				<span class="equation"><b>m</b> = c<sup>d</sup> mod n = <span class="cval">0</span><sup><span class="dval">0</span></sup> mod <span class="nval">0</span></span><br><br>
+				<span class="equation"><b>m</b> = <span class="m2val">0</span></span><br><br>
+			</div>
 		</div>
 	</div>
 </body>

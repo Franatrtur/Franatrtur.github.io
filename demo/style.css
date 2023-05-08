@@ -6,7 +6,7 @@
 
 html{
 	background: #F6EEE4;
-	font-family: 'Arial Narrow', Arial, sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 25px;
 }
 
@@ -26,9 +26,11 @@ body{
 .card{
 	border-radius: 10px;
 	box-shadow: 0 4px 5px rgba(0,0,0,0.25);
-	padding: 20px;
+	padding: 25px;
 	background-color: white;
-	margin-bottom: 40px;
+	margin-bottom: 80px;
+	min-width: 400px;
+	min-height: 200px;
 }
 
 #cont1{
@@ -36,13 +38,70 @@ body{
 }
 
 .equation{
-	font-style: italic;
+	/*font-style: italic;*/
 	font-family: serif;
 }
 
 h1{
 	font-size: 25px;
-	font-family: 'Arial Narrow', Arial, sans-serif;
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 	text-align: center;
+}
+
+#cont4{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+#arrow{
+	font-size: 100px;
+	margin: 40px;
+}
+
+#minput{
+	border: 1px solid grey;
+	border-radius: 4px;
+	padding: 5px;
+	font-size: 1rem;
+}
+
+#sent{
+	position: absolute;
+	font-size: 1rem;
+	padding: 5px;
+	border: 2px solid grey;
+	background-color: aliceblue;
+	border-radius: 5px;
+}
+
+body{
+	
+	counter-reset: ee;
+}
+h1{
+	counter-increment: ee;
+
+}
+h1::before{
+	content: counters(ee, '.');
+	padding: 5px 13px;
+	border-radius: 1000px;
+	width: 2rem;
+	height: 2rem;
+	background-color:  #E55212;
+	color: white;
+	margin-right: 15px;
+}
+
+h2{
+	padding: 50px;
+	text-align: center;
+	margin-bottom: 50px;
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+}
+
+input[type=range]{
+	width: 100%;
 }
