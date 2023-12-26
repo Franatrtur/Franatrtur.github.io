@@ -26,6 +26,8 @@ class Production {
 		this.reasoning = recipientObject.reasoning
 		this.art = recipientObject.art
 
+		$("title").text(this.for)
+
 		this.state = 0
 		this.series = null
 		this.capture = null
