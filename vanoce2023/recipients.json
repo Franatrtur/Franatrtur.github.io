@@ -20,7 +20,7 @@
 	"pro_kikuuu": {
 		"for": "Pro Kiku",
 		"greeting": "Ahoj Kiko!",
-		"reasoning": "Když jsem na tomhle dělal, pořád jsem vzpomínal jak jsem z tebe nemohl spustit oči při tom utkání basketbalu",
+		"reasoning": "Když jsem na tomhle dělal, pořád jsem vzpomínal jak z tebe nešlo spustit oči při tom utkání basketbalu",
 		"art": "./art/basketball.json"
 	},
 	"pro_martina": {
@@ -33,7 +33,7 @@
 		"for": "Pro Elišku",
 		"greeting": "Ahoj Eli",
 		"reasoning": "Rozhodl jsem se pro krásný zvíře, jediný, co bych studoval, kdybych byl biolog.",
-		"art": "./art/basketball.json"
+		"art": "./art/butterfly.json"
 	},
 	"pro_waziho": {
 		"for": "Pro Waziho",
@@ -44,7 +44,7 @@
 	"pro_moncu_ferdusovou_cili_ferda_mravenec": {
 		"for": "Pro Monču",
 		"greeting": "Ahoj Moni",
-		"reasoning": "Rád bych s tebou zase někdy někam po škole zašel ven",
+		"reasoning": "Abys na mě nezapomněla",
 		"art": "./art/hands-heart.json"
 	},
 	"pro_steradiana": {

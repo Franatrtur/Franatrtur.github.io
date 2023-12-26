@@ -1,9 +1,19 @@
-let canvasCenter
+let CanvasCenter
 let PRODUCTION
+let PreloadObjects = {}
+
+function preload(){
+
+	PreloadObjects.blackdesert = loadSound("./sound/blackdesert.mp3")
+	PreloadObjects.c = 1
+}
 
 class Production {
 
 	constructor(recipientObject){
+
+		this.soundTrack = PreloadObjects.blackdesert
+		this.musicPlaying = false
 
 		if(!recipientObject){
 			this.state = 6
@@ -22,7 +32,7 @@ class Production {
 
 
 		this.simple = simpleSeries()[0]
-		this.simple.animate(canvasCenter.copy().add(0,100), 10000, randomHSLcolor(true), randomHSLcolor(false))
+		this.simple.animate(CanvasCenter.copy().add(0,100), 10000, randomHSLcolor(true), randomHSLcolor(false))
 		this.nextButton = createButton("Pokračovat", "A").addClass("nextbutton")
 	
 		$(this.nextButton.elt).on("click", () => this.nextState())
@@ -32,13 +42,26 @@ class Production {
 		loader.load().then(({path, totalTime}) => {
 	
 			let fourierTransform = path.modify(0, 0, height / 919, false, 0).toFourierTransform()
-			this.series = fourierTransform.transform(ceil(path.length / 5), 0.31415926, 120, true, true) //easter egg
+			this.series = fourierTransform.transform(ceil(path.length / 5), 0.31415926, 100, true, true) //easter egg
 			this.seriesTime = (totalTime || 18000) * 2
 
-			this.series.animate(canvasCenter, this.seriesTime, randomHSLcolor(true), randomHSLcolor(false), 16)
+			this.series.animate(CanvasCenter, this.seriesTime, randomHSLcolor(true), randomHSLcolor(false), 16)
 
 			console.log({fourierTransform})
 		})
+	}
+
+	startMusic(){
+
+		if(this.musicPlaying)
+			return
+
+		this.musicPlaying = true
+
+		this.soundTrack.setVolume(0.4)
+		this.soundTrack.loop()
+
+		setTimeout(() => this.soundTrack.setVolume(0.12, 3, 6), 100)
 	}
 
 	nextState(){
@@ -65,9 +88,9 @@ class Production {
 
 		switch(this.state){
 			case 0:
-				drawText(canvasCenter, this.for, 150, "rgba(255,255,255,0.1)", BOLD)
+				drawText(CanvasCenter, this.for, 150, "rgba(255,255,255,0.1)", BOLD)
 				drawText(
-					canvasCenter.copy().add(0, -100),
+					CanvasCenter.copy().add(0, -100),
 					"Dívej se na počítači",
 					40, "white"
 				)
@@ -75,12 +98,12 @@ class Production {
 
 			case 1:
 				drawText(
-					canvasCenter.copy().add(0, -200),
+					CanvasCenter.copy().add(0, -200),
 					this.greeting + ", dávej pozor. Naprogramoval jsem něco, co by se ti mohlo líbit.",
 					20, "white"
 				)
 				drawText(
-					canvasCenter.copy().add(0, -150),
+					CanvasCenter.copy().add(0, -150),
 					"Díval jsem se na to, jak krestlit pomoci otáčení šipek. Takhle funguje jedna šipka, otáčí se na místě a vykresluje kružnici:",
 					20, "white"
 				)
@@ -89,7 +112,7 @@ class Production {
 
 			case 2:
 				drawText(
-					canvasCenter.copy().add(0, -150),
+					CanvasCenter.copy().add(0, -150),
 					"Když na ni přidáš tuhle menší šipku a správně jim nastavíš velikost a rychlost, tak budou kreslit třeba tohle srdíčko (karioid):",
 					20, "white"
 				)
@@ -98,7 +121,7 @@ class Production {
 
 			case 3:
 				drawText(
-					canvasCenter.copy().add(0, -150),
+					CanvasCenter.copy().add(0, -150),
 					"Každá další šipka pomáhá tvořit složitější obrázky, když přidáš ještě jednu, máš tohodle panáčka :D",
 					20, "white"
 				)
@@ -107,24 +130,24 @@ class Production {
 
 			case 4:
 				drawText(
-					canvasCenter.copy().add(0, -150),
+					CanvasCenter.copy().add(0, -150),
 					"A tak jsem spojil " + this.series.components.length + " různých šipek aby nakreslily něco pro tebe.",
 					25, "white", ITALIC
 				)
 				drawText(
-					canvasCenter.copy().add(0, -100),
+					CanvasCenter.copy().add(0, -100),
 					this.reasoning,
 					25, "white", ITALIC
 				)
 				drawText(
-					canvasCenter.copy().add(0, 300),
+					CanvasCenter.copy().add(0, 300),
 					"Metodě, kterou jsem k tomu použil, se říka komplexní Fourierova transformace a je to jedna z nejkrásnějších částí matematiky, co jsem kdy viděl.",
 					20, "white"
 				)
 				break
 
 			case 5:
-				drawText(canvasCenter, this.for, 150, "rgba(255,255,255,0.1)", BOLD)
+				drawText(CanvasCenter, this.for, 150, "rgba(255,255,255,0.1)", BOLD)
 				this.series.draw()
 				break
 
@@ -137,7 +160,7 @@ class Production {
 				}
 				else{
 					drawText(
-						canvasCenter.copy().add(0, -100),
+						CanvasCenter.copy().add(0, -100),
 						"Můžeš si zkusit myší nakreslit jakoukoliv jednotažku (uzavřenou malůvku, musí začínat tam kde skončila) a Fourierova transformace se postará o zbytek",
 						20, "white"
 					)
@@ -162,14 +185,15 @@ class Production {
 	
 		console.log({fourierTransform})
 
-		this.series.animate(canvasCenter, this.sliderSpeed.value()**2 *1000, randomHSLcolor(true), randomHSLcolor(false))
+		this.series.animate(CanvasCenter, this.sliderSpeed.value()**2 *1000, randomHSLcolor(true), randomHSLcolor(false))
 	}
 }
 
 function setup(){
 
 	createCanvas(windowWidth, windowHeight)
-	canvasCenter = createVector(width / 2, height / 2)
+	CanvasCenter = createVector(width / 2, height / 2)
+	//frameRate(40)
 	angleMode(RADIANS)
 
 	$.get("./recipients.json", data => {
@@ -186,13 +210,16 @@ function setup(){
 
 function mousePressed(){
 
+	PRODUCTION.startMusic()
+
 	if(PRODUCTION.state != 6 || PRODUCTION.promptedPath)
 		return
 
-	PRODUCTION.capture = new CursorCapture(canvasCenter, PRODUCTION.sandbox ? 8 : 3)
+	PRODUCTION.capture = new CursorCapture(CanvasCenter, PRODUCTION.sandbox ? 8 : 3)
 	PRODUCTION.capture.animate()
 	PRODUCTION.series = null
 }
+
 
 function mouseReleased(){
 
@@ -205,11 +232,11 @@ function mouseReleased(){
 	PRODUCTION.capture.stop()
 
 	let fourierTransform = PRODUCTION.capture.toFourierTransform()
-	PRODUCTION.series = fourierTransform.transform(ceil(PRODUCTION.capture.length / 5), 0.6, 100, true, true)
+	PRODUCTION.series = fourierTransform.transform(ceil(PRODUCTION.capture.length / 5), 0.6, 100, true)
 
 	console.log({fourierTransform})
 
-	PRODUCTION.series.animate(canvasCenter, PRODUCTION.capture.totalTime * 3, randomHSLcolor(true), randomHSLcolor(false))
+	PRODUCTION.series.animate(CanvasCenter, PRODUCTION.capture.totalTime * 3, randomHSLcolor(true), randomHSLcolor(false), (PreloadObjects.c++ % 2) * 16)
 }
 
 function keyPressed(){
@@ -223,8 +250,8 @@ function keyPressed(){
 		let loader = new PathLoader
 		PRODUCTION.promptedPath = loader.prompt()
 
-		PRODUCTION.sliderX = createSlider(-canvasCenter.x, canvasCenter.x, 0, 20).position(10,10)
-		PRODUCTION.sliderY = createSlider(-canvasCenter.y, canvasCenter.y, 0, 10).position(10,30)
+		PRODUCTION.sliderX = createSlider(-CanvasCenter.x, CanvasCenter.x, 0, 20).position(10,10)
+		PRODUCTION.sliderY = createSlider(-CanvasCenter.y, CanvasCenter.y, 0, 10).position(10,30)
 		PRODUCTION.sliderScale = createSlider(0, 200, 100, 1).position(10,50)
 		PRODUCTION.sliderFlip = createSlider(0, 1, 0, 1).position(10,70)
 		PRODUCTION.sliderRotate = createSlider(0, 359, 0, 1).position(10,90)
@@ -609,8 +636,8 @@ class Path {
 					
 					stroke(currentColor)
 
-					if(this.animation.glow)
-						drawingContext.shadowColor = color(lerpColor(this.animation.color1, this.animation.color2, 1 - lightness))
+					if(this.animation.glow && (v & 7) == 0) //optimalizace, pouze každý osmý vektor měnit barvu stínu
+						drawingContext.shadowColor = color(currentColor)
 
 					line(
 						lastVertex.vector.x + this.animation.origin.x, lastVertex.vector.y + this.animation.origin.y,
@@ -685,7 +712,7 @@ class PathLoader {
 		let path = new Path
 
 		ptsString.split("\n").forEach(ptStr => path.extend(
-			createVector(...ptStr.split(",").map(Number)).sub(canvasCenter)
+			createVector(...ptStr.split(",").map(Number)).sub(CanvasCenter)
 		))
 
 		return path
@@ -742,7 +769,7 @@ class CursorCapture extends Path {
 }
 
 function randomHSLcolor(light = true){
-	return light ? `hsl(${floor(random(0,360))},${floor(random(70,100))}%,${floor(random(55,70))}%)` :`hsl(${floor(random(0,360))},${floor(random(50,100))}%,${floor(random(0,5))}%)`
+	return light ? `hsl(${floor(random(0,360))},${floor(random(70,100))}%,${floor(random(55,70))}%)` :`hsl(${floor(random(0,360))},${floor(random(50,80))}%,${floor(random(0,5))}%)`
 }
 
 function round(x, decimals){
