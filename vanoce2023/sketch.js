@@ -460,7 +460,7 @@ class FourierSeries {
 	constructor(components){
 
 		this.components = components
-		this.path = new Path()
+		this.path = new Path(true)
 	}
 
 	animate(origin, period, color1 = "yellow", color2 = "black", glow = false){
@@ -512,9 +512,10 @@ class FourierSeries {
 
 class Path {
 
-	constructor(){
+	constructor(deleteOld = false){
 
 		this.vertices = []
+		this.dissipate = deleteOld
 	}
 
 	animate(origin, weight, color1, lifetime = Infinity, fade = false, color2 = "black", glow = 0){
@@ -581,6 +582,7 @@ class Path {
 			return
 
 		let minTadded = millis() - this.animation.lifetime
+		let toDelete = 0
 
 		push()
 
@@ -615,6 +617,8 @@ class Path {
 						nextVertex.vector.x + this.animation.origin.x, nextVertex.vector.y + this.animation.origin.y,
 					)
 				}
+				else
+					toDelete++
 
 				lastVertex = nextVertex
 			}
@@ -632,12 +636,17 @@ class Path {
 						vtx.vector.x + this.animation.origin.x,
 						vtx.vector.y + this.animation.origin.y
 					)
+				else
+					toDelete++
 			}
 
 			endShape()
 		}
 
 		pop()
+
+		if(this.dissipate)
+			this.vertices = this.vertices.slice(toDelete)
 	}
 
 }
