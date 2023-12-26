@@ -53,7 +53,7 @@
 		"reasoning": "Abys na mě nezapomněla",
 		"art": "./art/hands-heart.json"
 	},
-	"pro_steradiana": {
+	"pro_steradyase": {
 		"for": "Pro Matyho",
 		"greeting": "Ahoj Radyáši",
 		"reasoning": "Doufám, že spolu zvládnem odmaturovat!!",
@@ -63,6 +63,12 @@
 		"for": "Pro Nelu",
 		"greeting": "Čau Nelo",
 		"reasoning": "Šipky jsem nastavil tak, aby nekreslily právě tebe!",
+		"art": "./art/dog1.json"
+	},
+	"pro_davida": {
+		"for": "Pro Dejva",
+		"greeting": "Čau Davide",
+		"reasoning": "-",
 		"art": "./art/dog1.json"
 	}
 }
