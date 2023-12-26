@@ -200,7 +200,7 @@ function setup(){
 
 	$.get("./recipients.json", data => {
 
-		let recipientName = window.location.search.slice(1)
+		let recipientName = window.location.search.slice(1).split("&")[0]
 		let recipient = data[recipientName]
 
 		if(!recipient && recipientName)
