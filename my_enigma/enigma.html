@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<!--
+Enigma v1.2 by FranaTrtur
+Enigma machine real-time emulator
+
+MIT LICENSE
+
+Copyright (c) 2019 František Artur Čech
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+and associated documentation files (the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<html>
+<head>
+<meta name="viewport" content="width=device-width">
+<meta charset="utf-8">
+<style>
+body, html{
+    background-color: #111;
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+    box-sizing: border-box;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+h1{
+    text-align: center;
+    font-size: calc(1vw + 20px);
+    color: #bbb;
+    margin: 18px 0;
+}
+.bulb{
+    color: #bbb;
+    background-color: #333;
+    display: inline-flex;
+    height: 5vw;
+    max-height: 70px;
+    min-height: 40px;
+    width: 5vw;
+    max-width: 70px;
+    min-width: 40px;
+    font-size: calc(12px + 2vw);
+    align-items: center;
+    justify-content: center;
+    border: calc(3px + 0.15vw) solid #666;
+    border-radius: 80px;
+    margin: calc(1% + 4px);
+    font-weight: bold;
+    cursor: pointer;
+}
+.light{
+    border-color: #eeffee;
+    color: white;
+    background: #222222;
+    text-shadow: 0 0 16px #cec, 0 0 20px #cec, 0 0 25px #cec, 0 0 30px #cec;
+    box-shadow: 0 0 3px #ada, 0 0 2px #ada, 0 0 11px #ada, 0 0 8px #ada,0 0 30px #ada, 0 0 40px #ada;
+}
+.lights, .sett, .mre{
+    max-width: 100vw;
+    width: 1200px;
+    text-align: center;
+    margin: 0 auto 15px auto;
+}
+#printed{
+    color: #ccc;
+    font-size: calc(12px + .6vw);
+    word-wrap: break-word;
+    white-space: -moz-pre-wrap;
+    white-space: pre-wrap;
+    padding: 20px;
+    max-width: 100vw;
+    text-align: center;
+}
+#printed:before{
+    content: "Output: ";
+    font-size: calc(12px + .5vw);
+    color: #aaa;
+}
+.sett{
+    width: 100vw;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+.rotor{
+    display: inline-block;
+    background-color: #444;
+    font-weight: bold;
+    padding: 4px 5px;
+    margin: 7px 0;
+    box-sizing: border-box;
+}
+.rotor div{
+    background-color: #222;
+    color: #aaa;
+    padding: 5px;
+    font-size: calc(12px + .7vw);
+    cursor: default;
+}
+.rotor div span.val, .refl .val{
+    color: white;
+}
+.rotor div .sip, .refl .sip{
+    cursor: pointer;
+    color: #ddd;
+    background-color: #191919;
+    padding: 0 5px;
+    border-radius: 1.5px;
+    border: none;
+    outline: none;
+    font-size: calc(12px + .7vw);
+    font-family: monospace;
+    font-weight: bold;
+}
+.rotor .pick{
+    margin-bottom: 4px;
+}
+#rot1 .pick{border-radius: 7px 0 0 0;}
+#rot1 .pos{border-radius: 0 0 0 7px;}
+#rot3 .pick{border-radius: 0 7px 0 0;}
+#rot3 .pos{border-radius: 0 0 7px 0;}
+.pckval::before{
+    content: "Rotor ";
+    color: #bbb;
+}
+.posval::before{
+    content: "Pozice ";
+    color: #bbb;
+}
+#rot1{border-radius: 10px 0 0 10px;}
+#rot3{border-radius: 0 10px 10px 0;}
+*:not(input)::selection{
+    background: rgba(255,255,255,.1);
+}
+input::selection{
+    background: rgba(0,0,0,.25);
+}
+.refl{
+    display: inline-block;
+    background-color: #222;
+    color: #aaa;
+    padding: 7px;
+    border: 4px solid #444;
+    border-radius: 8px;
+    font-size: calc(12px + .7vw);
+    font-weight: bold;
+}
+.refl .val:before{content: "Reflektor UKW-";color: #bababa;}
+.prop{
+    display: inline-block;
+    padding: 8px 8px 8px 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+    max-width: 90vw;
+    color: #aaa;
+    background-color: #333;
+    font-size: calc(12px + .7vw);
+    font-weight: bold;
+}
+.prop input{
+    background-color: #666;
+    border: none;
+    color: #ddd;
+    font-size: calc(12px + .7vw);
+    font-family: monospace;
+    padding: 4px 8px;
+    margin-left: 6px;
+    border-radius: 0 3px 3px 0;
+    font-weight: bold;
+    outline: none;
+    text-transform: uppercase;
+}
+.prop input::placeholder{
+    color: #aaa;
+}
+
+
+
+
+@media(max-width: 690px){
+    .lights br{
+        display: none;
+    }
+}
+@media(min-width: 1400px){
+    .bulb{
+        font-size: 45px;
+    }
+    .prop input{
+        border-radius: 5px;
+    }
+}
+@media(max-width: 440px){
+    .rotor div{border-radius: 4px !important;}
+    .rotor{border-radius: 6px !important;}
+}
+
+
+
+
+</style>
+</head>
+<body>
+<h1 id="nadpis">Moje Enigma</h1>
+<div class="sett">
+    <div class="rotors">
+        <div id="rot1" class="rotor">
+            <div class="pick">
+                <button id="p111" class="sip lf" onclick="m('pck1val');">&lt;</button> <span id="pck1val" class="pckval val">1</span> <button id="p112" class="sip rg" onclick="p('pck1val');">&gt;</button>
+            </div>
+            <div class="pos">
+                <button id="p121" class="sip lf" onclick="m('pos1val')">-</button> <span id="pos1val" class="posval val">A</span> <button id="p122" class="sip rg" onclick="p('pos1val');">+</button>
+            </div>
+        </div>
+        <div id="rot2" class="rotor">
+            <div class="pick">
+                <button id="p211" class="sip lf" onclick="m('pck2val');">&lt;</button> <span id="pck2val" class="pckval val">2</span> <button id="p212" class="sip rg" onclick="p('pck2val');">&gt;</button>
+            </div>
+            <div class="pos">
+                <button id="p221" class="sip lf" onclick="m('pos2val')">-</button> <span id="pos2val" class="posval val">A</span> <button id="p222" class="sip rg" onclick="p('pos2val')">+</button>
+            </div>
+        </div>
+        <div id="rot3" class="rotor">
+            <div class="pick">
+                <button id="p311" class="sip lf" onclick="m('pck3val');">&lt;</button> <span id="pck3val" class="pckval val">3</span> <button id="p312" class="sip rg" onclick="p('pck3val');">&gt;</button>
+            </div>
+            <div class="pos">
+                <button id="p321" class="sip lf" onclick="m('pos3val')">-</button> <span id="pos3val" class="posval val">A</span> <button id="p322" class="sip rg" onclick="p('pos3val')">+</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="lights">
+    <div class="bulb" id="Q">Q</div>
+    <div class="bulb" id="W">W</div>
+    <div class="bulb" id="E">E</div>
+    <div class="bulb" id="R">R</div>
+    <div class="bulb" id="T">T</div>
+    <div class="bulb" id="Z">Z</div>
+    <div class="bulb" id="U">U</div>
+    <div class="bulb" id="I">I</div>
+    <div class="bulb" id="O">O</div>
+    <br>
+    <div class="bulb" id="A">A</div>
+    <div class="bulb" id="S">S</div>
+    <div class="bulb" id="D">D</div>
+    <div class="bulb" id="F">F</div>
+    <div class="bulb" id="G">G</div>
+    <div class="bulb" id="H">H</div>
+    <div class="bulb" id="J">J</div>
+    <div class="bulb" id="K">K</div>
+    <br>
+    <div class="bulb" id="P">P</div>
+    <div class="bulb" id="Y">Y</div>
+    <div class="bulb" id="X">X</div>
+    <div class="bulb" id="C">C</div>
+    <div class="bulb" id="V">V</div>
+    <div class="bulb" id="B">B</div>
+    <div class="bulb" id="N">N</div>
+    <div class="bulb" id="M">M</div>
+    <div class="bulb" id="L">L</div>
+</div>
+<div class="mre">
+    <div class="refl">
+        <button id="p41" class="sip lf" onclick="rfs(false)">&lt;</button> <span id="refval" class="val">A</span> <button id="p42" class="sip rg" onclick="rfs(true)">&gt;</button>
+    </div>
+    <br>
+    <div class="prop">
+        Propojovací deska: <wbr><input id="plugb" type="text" placeholder="např. AH RG CV" autocomplete="off" maxlength="38" size="26">
+    </div>
+</div>
+<div id="printed"></div>
+<script>
+    //Enigma.js v1.2 by FranaTrtur
+//Enigma machine real-time emulator
+
+/*MIT LICENSE
+
+Copyright (c) 2019 František Artur Čech
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+and associated documentation files (the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+var Enigma={alphabet:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",rotors:[]};Enigma.rotors[0]={wiring:[],position:0,tick:function(){Enigma.rotors[0].position=(Enigma.rotors[0].position+1)%26,Enigma.rotors[0].wiring=Enigma.rotors[0].wiring.slice(1).concat(Enigma.rotors[0].wiring.slice(0,1)),0==Enigma.rotors[0].position&&Enigma.rotors[1].tick()},setRotor:function(r,i){r=Array.isArray(r)&&26==r.length?r:Enigma.wirings[0],i="number"!=typeof i?0:Math.abs(i)%26,Enigma.rotors[0].wiring=r.slice(i).concat(r.slice(0,i)),Enigma.rotors[0].position=i}},Enigma.rotors[1]={wiring:[],position:0,tick:function(){Enigma.rotors[1].position=(Enigma.rotors[1].position+1)%26,Enigma.rotors[1].wiring=Enigma.rotors[1].wiring.slice(1).concat(Enigma.rotors[1].wiring.slice(0,1)),0==Enigma.rotors[1].position&&Enigma.rotors[2].tick()},setRotor:function(r,i){r=Array.isArray(r)&&26==r.length?r:Enigma.wirings[1],i="number"!=typeof i?0:Math.abs(i)%26,Enigma.rotors[1].wiring=r.slice(i).concat(r.slice(0,i)),Enigma.rotors[1].position=i}},Enigma.rotors[2]={wiring:[],position:0,tick:function(){Enigma.rotors[2].position=(Enigma.rotors[2].position+1)%26,Enigma.rotors[2].wiring=Enigma.rotors[2].wiring.slice(1).concat(Enigma.rotors[2].wiring.slice(0,1))},setRotor:function(r,i){r=Array.isArray(r)&&26==r.length?r:Enigma.wirings[2],i="number"!=typeof i?0:Math.abs(i)%26,Enigma.rotors[2].wiring=r.slice(i).concat(r.slice(0,i)),Enigma.rotors[2].position=i}},Enigma.wirings=[[9,22,5,12,7,13,1,15,20,18,3,24,19,8,23,21,25,6,17,16,11,0,14,4,10,2],[4,10,12,5,11,6,3,16,21,25,13,19,14,22,24,7,23,20,18,15,0,8,1,17,2,9],[4,18,14,21,15,25,9,0,24,16,20,8,17,7,23,11,13,5,19,6,10,3,2,12,22,1],[22,19,14,10,0,18,20,24,21,17,1,23,9,7,16,2,15,25,4,5,12,3,8,13,11,6],[21,25,1,17,6,8,19,24,20,15,18,3,7,13,11,23,0,22,12,9,16,14,5,4,2,10]],Enigma.reflectors=[[5,21,15,9,8,0,14,24,4,3,17,25,23,22,6,2,19,10,20,16,18,1,13,12,7,11],[24,17,20,7,16,18,11,3,15,23,13,6,14,10,12,8,4,1,5,25,2,22,21,9,0,19],[4,9,12,25,0,11,24,23,21,1,22,5,2,17,16,20,14,13,19,18,15,8,10,7,6,3]],Enigma.reflect={reflector:[],setReflector:function(r){if(!Array.isArray(r)||Math.max.apply(Math,r)>25||Math.min.apply(Math,r)<0||26!=r.length&&13!=r.length)return!1;if(13==r.length){for(var i=[],o=0;o<26;o++)i.push(r.indexOf(o)<0?r.indexOf(o-13):r[o]+13);return Enigma.reflect.reflector=i,i}Enigma.reflect.reflector=r}},Enigma.plugboard={board:[],setBoard:function(r){if(!Array.isArray(r)||Math.max.apply(Math,r)>25||Math.min.apply(Math,r)<0||26!=r.length)return Enigma.plugboard.board=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],!1;Enigma.plugboard.board=r},generate:function(r){if(!Array.isArray(r)||r.length>13||"string"!=typeof r[0]||2!=r[0].length||r.length<1)return[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];for(var i=[],o=[],n=0;n<26;n++)i.push(n);for(var a=0;a<r.length;a++)o.push([Enigma.alphabet.indexOf(r[a].charAt(0).toUpperCase()),Enigma.alphabet.indexOf(r[a].charAt(1).toUpperCase())]);for(var t=0;t<o.length;t++){var e=o[t];i[e[0]]=e[1],i[e[1]]=e[0]}return i},textBoard:function(r){for(var i="",o=0;o<r.length;o++)i+=Enigma.alphabet.indexOf(r.charAt(o).toUpperCase())<0?r.charAt(o):Enigma.alphabet.charAt(Enigma.plugboard.board[Enigma.alphabet.indexOf(r.charAt(o).toUpperCase())]);return i}},Enigma.encodeIdx=function(r){return r=Enigma.plugboard.board.indexOf(Enigma.rotors[0].wiring.indexOf(Enigma.rotors[1].wiring.indexOf(Enigma.rotors[2].wiring.indexOf(Enigma.reflect.reflector[Enigma.rotors[2].wiring[Enigma.rotors[1].wiring[Enigma.rotors[0].wiring[Enigma.plugboard.board[r]]]]])))),Enigma.rotors[0].tick(),r},Enigma.setSettings=function(r,i,o,n,a){if("object"!=typeof r||Array.isArray(r)||void 0!==i||void 0===r.rotor1)t=r;else{i=r.rotor2,o=r.rotor3,n=r.plugboard,a=r.reflector;var t=r.rotor1}Enigma.rotors[0].setRotor(Array.isArray(t[0])?t[0]:Enigma.wirings[t[0]],t[1]),Enigma.rotors[1].setRotor(Array.isArray(i[0])?i[0]:Enigma.wirings[i[0]],i[1]),Enigma.rotors[2].setRotor(Array.isArray(o[0])?o[0]:Enigma.wirings[o[0]],o[1]),Enigma.reflect.setReflector(Array.isArray(a)?a:Enigma.reflectors[a]),Enigma.plugboard.setBoard("string"==typeof n[0]?Enigma.plugboard.generate(n):n)},Enigma.getSettings=function(){return{rotor1:[Enigma.rotors[0].wiring,Enigma.rotors[0].position],rotor2:[Enigma.rotors[1].wiring,Enigma.rotors[1].position],rotor3:[Enigma.rotors[2].wiring,Enigma.rotors[2].position],plugboard:Enigma.plugboard.board,relfector:Enigma.reflect.reflector}},Enigma.toSettings=function(r,i,o,n,a){return{rotor1:[Array.isArray(r[0])?r[0]:Enigma.wirings[r[0]],r[1]],rotor2:[Array.isArray(i[0])?i[0]:Enigma.wirings[i[0]],i[1]],rotor3:[Array.isArray(o[0])?o[0]:Enigma.wirings[o[0]],o[1]],plugboard:"string"==typeof n[0]?Enigma.plugboard.generate(n):n,reflector:Array.isArray(a)?a:Enigma.reflectors[a]}},Enigma.encodeChar=function(r,i){return i="boolean"!=typeof i||i,1!=r.length?"":Enigma.alphabet.indexOf(r.toUpperCase())<0||Enigma.alphabet.indexOf(r)<0&&!i?i?r:"":r.toUpperCase()==r?Enigma.alphabet.charAt(Enigma.encodeIdx(Enigma.alphabet.indexOf(r))):Enigma.alphabet.charAt(Enigma.encodeIdx(Enigma.alphabet.indexOf(r.toUpperCase()))).toLowerCase()},Enigma.encodeString=function(r,i){for(var o="",n=0;n<r.length;n++)o+=Enigma.encodeChar(i?r.charAt(n).toUpperCase():r.charAt(n),!i);return 0==o.length?"":i?o.match(/.{1,4}/g).join(" "):o};
+var last, tmo;
+var svit = function(el){
+    dd(el.id).classList.add("light");
+    if(typeof last != "undefined" && last.id != el.id)
+        dd(last.id).classList.remove("light");
+    last = el;
+    click.play();
+    clearTimeout(tmo);
+    tmo = setTimeout(function(){
+        dd(el.id).classList.remove("light");
+    }, 1250);
+}
+function dd(r){return document.getElementById(r);}
+window.povoleno = true;
+document.addEventListener("keypress", function(e){
+    if(Enigma.alphabet.indexOf(e.key.toUpperCase()) > -1 && window.povoleno == true && document.activeElement.id != "plugb"){
+        sifra(e.key.toUpperCase());
+        window.povoleno = false;
+        setTimeout(function(){
+            window.povoleno = true;
+        }, 150);
+    }
+    else if(document.activeElement.id == "plugb"){
+        setTimeout(function(){
+        dd("plugb").value = dd("plugb").value.toUpperCase();
+            while(Enigma.alphabet.indexOf(dd("plugb").value.substr(-1)) < 0 && dd("plugb").value.substr(-1) != " " && dd("plugb").value.length > 0)
+                dd("plugb").value = dd("plugb").value.substring(0, dd("plugb").value.length - 1);
+        }, 5);
+    }
+});
+for(var pism = 0; pism < Enigma.alphabet.length; pism++)
+    dd(Enigma.alphabet.charAt(pism)).addEventListener("click", function(e){sifra(this.id);return false;});
+var click = new Audio("click1.wav");
+var click2 = new Audio("click2.ogg");
+function sifra(pism){
+    var cr = Enigma.encodeChar(pism.toUpperCase());
+    svit(dd(cr));
+    dd("printed").innerHTML += cr;
+    dd("printed").innerHTML = dd("printed").innerHTML.split(" ").join("").match(/.{1,4}/g).join(" ");
+    ge();
+}
+var over = function(idx, max){return (max + idx % max) % max;}
+function se(){
+    dd("printed").innerHTML = "";
+Enigma.setSettings([dd("pck3val").innerHTML,Enigma.alphabet.indexOf(dd("pos3val").innerHTML)],
+[dd("pck2val").innerHTML,Enigma.alphabet.indexOf(dd("pos2val").innerHTML)],
+[dd("pck1val").innerHTML,Enigma.alphabet.indexOf(dd("pos1val").innerHTML)],
+dd("plugb").value.split(" "),
+Enigma.alphabet.indexOf(dd("refval").innerHTML)
+);
+}
+function ge(){
+    dd("pos1val").innerHTML = Enigma.alphabet.charAt(Enigma.getSettings().rotor3[1]);
+    dd("pos2val").innerHTML = Enigma.alphabet.charAt(Enigma.getSettings().rotor2[1]);
+    dd("pos3val").innerHTML = Enigma.alphabet.charAt(Enigma.getSettings().rotor1[1]);
+}
+function m(el){
+    if(!isNaN(parseInt(dd(el).innerHTML))){
+        dd(el).innerHTML = over(parseInt(dd(el).innerHTML) - 2, 5) + 1;
+        click2.pause();
+        click2.currentTime = 0;
+        click2.play();
+    }
+    else{
+        dd(el).innerHTML = Enigma.alphabet.charAt(over(Enigma.alphabet.indexOf(dd(el).innerHTML) - 1, Enigma.alphabet.length));
+        click.pause();
+        click.currentTime = 0;
+        click.play();
+    }
+    se();
+
+}
+function p(el){
+    if(!isNaN(parseInt(dd(el).innerHTML))){
+        dd(el).innerHTML = (parseInt(dd(el).innerHTML)) % 5 + 1;
+        click2.pause();
+        click2.currentTime = 0;
+        click2.play();
+    }
+    else{
+        dd(el).innerHTML = Enigma.alphabet.charAt(over(Enigma.alphabet.indexOf(dd(el).innerHTML) + 1, Enigma.alphabet.length));
+        click.pause();
+        click.currentTime = 0;
+        click.play();
+    }
+    se();
+}
+function rfs(pls){
+    dd("refval").innerHTML = Enigma.alphabet.charAt(over(Enigma.alphabet.indexOf(dd("refval").innerHTML) + (!!pls ? 1 : -1), 3));
+    click2.pause();
+    click2.currentTime = 0;
+    click2.play();
+    se();
+}
+dd("plugb").addEventListener("change", function(){se();});
+se();
+</script>
+</body>
+</html>
