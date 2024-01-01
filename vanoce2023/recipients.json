@@ -47,6 +47,12 @@
 		"reasoning": "Promiň, že jsem nedorazil na Brnoc, jako omluvu ti posílám Sedícího Býka",
 		"art": "./art/indian-svg.json"
 	},
+	"pro_vr": {
+		"for": "Pro VR",
+		"greeting": "Hahé",
+		"reasoning": "Tady máte Sedícího Býka",
+		"art": "./art/indian-svg.json"
+	},
 	"pro_moncu_ferdusovou_cili_ferda_mravenec": {
 		"for": "Pro Monču",
 		"greeting": "Ahoj Moni",
