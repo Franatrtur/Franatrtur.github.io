@@ -11,6 +11,12 @@
 		"reasoning": "Protože ti vdycky kreslím indiána, tak i tentokrát",
 		"art": "./art/indian.json"
 	},
+	"demo": {
+		"for": "Demo",
+		"greeting": "Ahoj",
+		"reasoning": "Zaujatý diváku, sleduj, jak se před tebou tvoří dokonalost",
+		"art": "./art/bodybuilder.json"
+	},
 	"pro_natku": {
 		"for": "Pro Naty",
 		"greeting": "Čau Naty",
@@ -52,6 +58,12 @@
 		"greeting": "Hahé",
 		"reasoning": "Tady máte Sedícího Býka",
 		"art": "./art/indian-svg.json"
+	},
+	"pro_nelcu": {
+		"for": "Pro Nelču",
+		"greeting": "Ahoj Nelčo",
+		"reasoning": "Posílám ti motýle",
+		"art": "./art/butterfly.json"
 	},
 	"pro_moncu_ferdusovou_cili_ferda_mravenec": {
 		"for": "Pro Monču",
