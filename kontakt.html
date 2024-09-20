@@ -3,9 +3,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="img/franatrtur-transparent.png">
-	<title>F. Čech - Portfolio</title>
+	<title>F. Čech - Kontakt</title>
 	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/kontakt.css">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,13 +18,13 @@
 
 	<header class="row">
 		<div id="nav" class="row">
-			<a href="#" id="imglink">
+			<a href="index.html" id="imglink">
 				<img src="img/franatrtur.png">
 			</a>
 			<div class="bullet">•</div>
 			<a onclick="goto(this)" --data-href="projekty.html">Projekty</a>
 			<div class="bullet">•</div>
-			<a onclick="goto(this)" --data-href="kontakt.html">Kontakt</a>
+			<a onclick="goto(this)" --data-href="kontakt.html" class="current">Kontakt</a>
 			<div class="bullet">•</div>
 			<a onclick="goto(this)" --data-href="skills.html">Skills</a>
 			<div class="bullet">•</div>
@@ -35,21 +35,32 @@
 
 	<div id="content" class="row">
 
-		<img src="img/me3.jpeg"/>
+		<img src="img/me.jpeg"/>
 
 		<div class="col">
-			<h1>Jsem František Artur Čech</h1>
-			<h2>...a tato stránka není zdaleka jediný <a href="projekty.html">projekt</a>, který jsem naprogramoval</h2>
+			<h2>Mé CV a kontakty, přehledně</h2>
 			<div id="buttons" class="col">
-				<a class="button" href="kontakt.html"> @ Kontakt</a>
-				<a class="button" href="ai.html"> + Zjistit více</a>
+				<a id="cv" class="social row" href="https://flowcv.com/resume/l0oagnkins">
+					<img src="img/file.png">
+					Životopis
+				</a>
+				<h5 class="telmail">↑ Mail a telefon je k nalezení v CV</h5>
+				<h5><a href="cv.pdf" download>Stáhnout v PDF</a></h5>
+				<a id="gh" class="social row" href="https://github.com/Franatrtur">
+					<img src="img/github.png">
+					Github
+				</a>
+				<a id="li" class="social row" href="https://linkedin.com/in/fcech05">
+					<img src="img/linkedin.png">
+					Linked In
+				</a>
 			</div>
 		</div>
 
 
 	</div>
 
-	<a target="_blank"  href="https://www.youtube.com/watch?v=qdHipyZgOTY" id="swiss">
+	<a target="_blank" href="https://www.youtube.com/watch?v=qdHipyZgOTY" id="swiss">
 		Styl: Swiss webdesign
 	</a>
 

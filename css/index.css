@@ -1,0 +1,83 @@
+body{
+	justify-content: space-between;
+}
+#content{
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 5vh;
+	min-height: calc(100vh - 5rem);
+}
+#content img{
+	height: 60vh;
+	margin-left: 4rem;
+	box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+	animation: appear 1s ease both;
+}
+
+#content h1{
+	font-size: 3.6rem;
+	margin-bottom: 4rem;
+	animation: appear 1s ease both;
+}
+#content h2{
+	font-size: 1.5rem;
+	margin-bottom: 2rem;
+	animation: appear-right 1s ease both 1.5s;
+}
+#content h2 a{
+	animation: noticeme .5s both 4.5s;
+	display: inline-block
+}
+@keyframes noticeme {
+	0%{transform: translateY(0)}
+	50%{transform: translateY(-10px)}
+	100%{transform: translateY(0)}
+}
+
+
+#buttons{
+	align-items: baseline;
+}
+#buttons a{
+	margin: 1rem 0;
+	color: var(--paper);
+	font-size: 1.4rem;
+	font-weight: 200;
+	text-decoration: none;
+}
+#buttons a:nth-child(1){
+	animation: appear-right 1s ease both 2.5s;
+}
+#buttons a:nth-child(2){
+	animation: appear-right 1s ease both 3s;
+}
+
+.button{
+	padding: 1rem 2rem;
+	transition: box-shadow 0.8s ease;
+	display: block;
+	border-left: 5px solid var(--link);
+	background-color: #007C77;
+	box-shadow: 0 0 0 0 #007C77, 0 0 0 0 var(--link) inset;
+}
+.button:hover{
+	background-color: var(--link);
+	box-shadow: 10px 10px 0 0 #007C77, 100px 100px 0 0 var(--link) inset;
+}
+
+
+
+@media (min-width: 801px) {
+	#content>div{
+		max-width: 50%;
+		padding: 5rem;
+	}
+}
+@media (max-width: 800px) {
+	#content{
+		flex-direction: column-reverse;
+	}
+	#content>div{
+		padding: 2rem;
+	}
+}

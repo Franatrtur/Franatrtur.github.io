@@ -1,0 +1,128 @@
+#content{
+	align-items: center;
+	padding: 2rem 6rem;
+	width: calc(500px + 50%);
+	max-width: 100%;
+}
+#content h2{
+	font-size: 2rem;
+	padding: 3rem 0;
+	animation: appear .8s ease both;
+}
+#content section{
+	align-items: start;
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	padding: 5rem 0;
+	max-width: 100%;
+	opacity: 0;
+}
+#content section .image{
+	width: 30%;
+}
+#content section .image img{
+	box-shadow: 0 5px 8px rgba(0,0,0,0.25);
+	width: 100%;
+	margin-bottom: 2rem;
+	transition: transform 0.5s ease;
+}
+#content section .image a{
+	cursor: pointer;
+}
+#content section .image a img{
+	border: 1px solid var(--link);
+}
+#content section .project{
+	width: calc(70% - 4rem);
+}
+#content section .project h1{
+	margin-bottom: 2rem;
+	font-size: 2rem;
+}
+#content section .project p{
+	font-size: 1.1rem;
+	line-height: 140%;
+}
+#content section:nth-child(even) .image{
+	margin-right: 4rem;
+}
+#content section:nth-child(even) .project {
+	text-align: left;
+}
+#content section:nth-child(even) .image a:hover img{
+	transform: translateX(100%) scale(3);
+}
+
+#content section:nth-child(odd) .image{
+	margin-left: 4rem;
+}
+#content section:nth-child(odd){
+	flex-direction: row-reverse;
+}
+#content section:nth-child(odd) .project {
+	text-align: left;
+}
+#content section:nth-child(odd) .image a:hover img{
+	transform: translateX(-100%) scale(3);
+}
+
+#content .animate:nth-child(odd){
+	animation: appear-right 2s ease 0s both;
+	opacity: 0;
+}
+
+#content .animate:nth-child(even){
+	animation: appear-left 2s ease 0s both;
+	opacity: 0;
+}
+#content .animate.later{
+	animation-delay: 1s !important;
+}
+
+.button{
+	background-color: white;
+	padding: .5rem 1rem;
+	border-radius: .5rem;
+	font-size: 1.2rem;
+	color: black;
+	text-decoration: none;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 0s ease, box-shadow 0s ease;
+	box-shadow: 0 4px 9px rgba(0,0,0,0.25);
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	display: inline-flex;
+}
+.buttons a{
+	margin-top: 2rem;
+}
+.button:hover{
+	transform: scale(1.02);
+	box-shadow: 0px 20px 20px -10px rgba(0,0,0,0.3);
+}
+.button img{
+	height: 2rem;
+	margin-right: 1rem;
+}
+
+footer{
+	padding: 5rem 2rem 10rem 2rem;
+}
+
+footer > div{
+	align-items: center;
+	justify-content: center;
+	font-size: 1.3rem;
+}
+
+footer > div .button{
+	margin-left: 2rem;
+}
+
+
+@media (max-width: 1000px) {
+	#content{
+		padding: 2rem 3rem;
+	}
+}

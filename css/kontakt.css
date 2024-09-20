@@ -1,0 +1,91 @@
+body{
+	justify-content: space-between;
+}
+#content{
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 5vh;
+	min-height: calc(100vh - 5rem);
+}
+#content > img{
+	height: 60vh;
+	box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+}
+
+#content h2{
+	font-size: 1.5rem;
+	margin-bottom: 2rem;
+}
+
+#content h5{
+	padding-left: 0.5rem;
+	margin-bottom: 0 !important;
+}
+
+
+#buttons{
+	align-items: baseline;
+}
+#buttons a{
+	margin: 1rem 0;
+	text-decoration: none;
+}
+.social{
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: black;
+	align-items: center;
+	padding: 1rem;
+	background-color: white;
+	box-shadow: 0 0 10px -10px var(--link-color) inset, 2px 2px 6px rgba(0,0,0,0.2);
+	border-radius: 10px;
+	min-width: 200px;
+	transition: box-shadow 0.8s ease, transform 0.5s ease;
+	z-index: 1;
+}
+.social img{
+	height: 2rem;
+	margin-right: 1rem;
+}
+#cv{
+	--link-color: #ff8995;
+	animation: appear-right 1s ease 0s backwards;
+}
+#gh{
+	--link-color: #ad7aff;
+	animation: appear-right 1s ease 0.2s backwards;
+}
+#li{
+	--link-color: #80a2ff;
+	animation: appear-right 1s ease 0.4s backwards;
+}
+.social:hover{
+	transform: scale(1.05);
+	box-shadow: 0 0 10px 3rem var(--link-color) inset, 2px 2px 6px rgba(0,0,0,0.2);
+}
+#buttons .telmail{
+	animation: appear-top .8s ease .9s both;
+	z-index: 0;
+}
+#buttons h5 a{
+	display: inline-block;
+	animation: appear-top 1.2s ease 1s both;
+}
+
+@media (min-width: 801px) {
+	#content>div{
+		max-width: 50%;
+		padding: 5rem;
+	}
+	#content > img{
+		margin-left: 4rem;
+	}
+}
+@media (max-width: 800px) {
+	#content{
+		flex-direction: column-reverse;
+	}
+	#content>div{
+		padding: 2rem;
+	}
+}

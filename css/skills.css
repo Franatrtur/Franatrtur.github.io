@@ -1,0 +1,94 @@
+#content{
+	position: relative;
+	min-height: calc(100vh - 5rem);
+	overflow: hidden;
+	background-color: rgba(0,0,0,0.05);
+	box-shadow: 0 0 20px 0 rgba(0,0,0,0.3) inset;
+}
+
+#toggle-container{
+	position: absolute;
+	top: 10px;
+	left: calc(50% - 6rem);
+	width: 12rem;
+	justify-content: space-between;
+	align-items: center;
+	background-color: white;
+	padding: 1rem;
+	color: black;
+	border-radius: 5px;
+	box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.2);
+	z-index: 2;
+	font-weight: bold;
+	animation: appear-top .5s ease 9s both;
+}
+#toggle{
+	position: relative;
+	width: 2.8rem;
+	height: 1.5rem;
+	background-color: black;
+	border-radius: 500rem;
+	margin-left: 1rem;
+	transition: background-color 0.5s ease;
+	cursor: pointer;
+}
+#toggle:hover{background-color: black;}
+#toggle::after{
+	content: "";
+	width: 0.95rem;
+	height: 0.95rem;
+	position: absolute;
+	background-color: white;
+	top: 0.28rem;
+	left: 0.35rem;
+	border-radius: 100rem;
+	transition: margin-left 0.2s ease;
+}
+#toggle.switched::after{
+	margin-left: 1.2rem;
+}
+
+.ball{
+	position: absolute;
+	background-color: white;
+	box-shadow: 0px 2px 5px 0 rgba(0,0,0,0.2);
+	transition: transform 0.2s ease;
+	display: flex;
+	overflow: hidden;
+	cursor: default;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+}
+.ball:hover{
+	transform: scale(1.4);
+}
+.textball{
+	font-weight: 800;
+	color: white;
+	background-color: var(--color);
+}
+.colorpicker{
+	color: rgb(42, 105, 213);
+}
+
+#iconsrc{
+	position: absolute;
+	display: block;
+	text-decoration: none;
+	background-color: white;
+	box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+	padding: 0.5rem 1rem;
+	font-weight: normal;
+	left: 0;
+	bottom: 0;
+}
+
+@keyframes ballappear{
+	from{
+		opacity: 0;
+	}
+	to{
+		opacity: 1;
+	}
+}

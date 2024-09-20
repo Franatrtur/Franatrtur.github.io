@@ -3,9 +3,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="img/franatrtur-transparent.png">
-	<title>F. Čech - Portfolio</title>
+	<title>F. Čech - Dotazy</title>
 	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/ai.css">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
 
 	<header class="row">
 		<div id="nav" class="row">
-			<a href="#" id="imglink">
+			<a href="index.html" id="imglink">
 				<img src="img/franatrtur.png">
 			</a>
 			<div class="bullet">•</div>
@@ -28,31 +28,37 @@
 			<div class="bullet">•</div>
 			<a onclick="goto(this)" --data-href="skills.html">Skills</a>
 			<div class="bullet">•</div>
-			<a onclick="goto(this)" --data-href="ai.html">Dotazy</a>
+			<a onclick="goto(this)" --data-href="ai.html" class="current">Dotazy</a>
 		</div>
 	</header>
 
 
-	<div id="content" class="row">
+	<div id="content" class="col">
+		<h1>
+			Zeptejme se na Frantu experta: <div class="row"><img src="img/google-gemini-icon.webp"> <span>Gemini</span></div>
+		</h1>
 
-		<img src="img/me3.jpeg"/>
-
-		<div class="col">
-			<h1>Jsem František Artur Čech</h1>
-			<h2>...a tato stránka není zdaleka jediný <a href="projekty.html">projekt</a>, který jsem naprogramoval</h2>
-			<div id="buttons" class="col">
-				<a class="button" href="kontakt.html"> @ Kontakt</a>
-				<a class="button" href="ai.html"> + Zjistit více</a>
-			</div>
+		<div id="response-container" class="col">
+			<div id="response"></div>
 		</div>
-
+		<div id="chat" class="row">
+			<input id="prompt" type="text" placeholder="[TAB] Umí Franta programovat?" autocomplete="off"/>
+			<button id="send">
+				<img src="img/send.svg">
+			</button>
+		</div>
 
 	</div>
 
-	<a target="_blank"  href="https://www.youtube.com/watch?v=qdHipyZgOTY" id="swiss">
+	<a target="_blank" href="https://www.youtube.com/watch?v=qdHipyZgOTY" id="swiss">
 		Styl: Swiss webdesign
 	</a>
+	
 
 	<script src="js/main.js"></script>
+	<script src="js/uluru.js"></script>
+	<script src="js/googleai.js"></script>
+	<script src="js/typewriter.js"></script>
+	<script src="js/ai.js"></script>
 </body>
 </html>
