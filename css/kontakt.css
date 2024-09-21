@@ -8,7 +8,6 @@ body{
 	min-height: calc(100vh - 5rem);
 }
 #content > img{
-	height: 60vh;
 	box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
 }
 
@@ -73,9 +72,13 @@ body{
 }
 
 @media (min-width: 801px) {
-	#content>div{
-		max-width: 50%;
+	#content{
 		padding: 5rem;
+	}
+	#content>div{
+		max-width: 60%;
+		width: calc(300px + 15%);
+		margin-left: 5rem;
 	}
 	#content > img{
 		margin-left: 4rem;
@@ -84,8 +87,14 @@ body{
 @media (max-width: 800px) {
 	#content{
 		flex-direction: column-reverse;
+		padding: 2rem;
 	}
 	#content>div{
-		padding: 2rem;
+		padding: 3rem 0;
+		text-align: center;
+	}
+	#content > img{
+		width: 100%;
+		margin-bottom: 2rem;
 	}
 }

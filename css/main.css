@@ -135,7 +135,7 @@ a{
 }
 
 
-@media (max-width: 1000px) {
+@media (max-width: 1280px) {
 	html{
 		font-size: 13px;
 	}

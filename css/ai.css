@@ -55,7 +55,7 @@ body{
 }
 #response{
 	font-size: 1.3rem;
-	line-height: 2rem;
+	line-height: 140%;
 }
 @keyframes token {
 	from {opacity: 0;transform: translateY(5px);}
@@ -128,10 +128,11 @@ body{
 
 @media (max-width:600px) {
 	#content{
-		padding: 2rem 2rem 3rem 2rem;
+		padding: 3rem 2rem 4rem 2rem;
 	}
 	#content h1{
-		font-size: 1.5rem;
+		font-size: calc(0.7rem + 1.5vh);
+		line-height: 200%;
 		margin-bottom: 1.5rem;
 		flex-direction: column;
 	}
@@ -142,8 +143,8 @@ body{
 		height: 100%;
 	}
 	#response{
-		font-size: 1.1rem;
-		line-height: 1.5rem;
+		font-size: calc(0.5rem + 1.2vh);
+		line-height: 140%;
 	}
 	#chat{
 		width: 100%;

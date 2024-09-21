@@ -16,9 +16,6 @@
 	max-width: 100%;
 	opacity: 0;
 }
-#content section .image{
-	width: 30%;
-}
 #content section .image img{
 	box-shadow: 0 5px 8px rgba(0,0,0,0.25);
 	width: 100%;
@@ -31,9 +28,6 @@
 #content section .image a img{
 	border: 1px solid var(--link);
 }
-#content section .project{
-	width: calc(70% - 4rem);
-}
 #content section .project h1{
 	margin-bottom: 2rem;
 	font-size: 2rem;
@@ -42,27 +36,15 @@
 	font-size: 1.1rem;
 	line-height: 140%;
 }
-#content section:nth-child(even) .image{
-	margin-right: 4rem;
-}
 #content section:nth-child(even) .project {
 	text-align: left;
 }
-#content section:nth-child(even) .image a:hover img{
-	transform: translateX(100%) scale(3);
-}
 
-#content section:nth-child(odd) .image{
-	margin-left: 4rem;
-}
 #content section:nth-child(odd){
 	flex-direction: row-reverse;
 }
 #content section:nth-child(odd) .project {
 	text-align: left;
-}
-#content section:nth-child(odd) .image a:hover img{
-	transform: translateX(-100%) scale(3);
 }
 
 #content .animate:nth-child(odd){
@@ -116,13 +98,45 @@ footer > div{
 	font-size: 1.3rem;
 }
 
-footer > div .button{
-	margin-left: 2rem;
+@media (min-width: 1001px) {
+	
+	#content section .image{
+		width: 30%;
+	}
+	#content section .project{
+		width: calc(70% - 4rem);
+	}
+	#content section:nth-child(odd) .image{
+		margin-left: 4rem;
+	}
+	#content section:nth-child(odd) .image a:hover img{
+		transform: translateX(-100%) scale(3);
+	}
+	#content section:nth-child(even) .image a:hover img{
+		transform: translateX(100%) scale(3);
+	}
+	#content section:nth-child(even) .image{
+		margin-right: 4rem;
+	}
+
+	footer > div .button{
+		margin-left: 2rem;
+	}
 }
-
-
 @media (max-width: 1000px) {
 	#content{
 		padding: 2rem 3rem;
+	}
+	#content section{
+		flex-direction: column !important;
+	}
+	footer > div{
+		flex-direction: column !important;
+	}
+	footer > div .button{
+		margin-top: 2rem;
+	}
+	#content h2{
+		padding-bottom: 0;
 	}
 }
