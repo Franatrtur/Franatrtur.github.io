@@ -50,7 +50,7 @@ body{
 }
 
 #response span{
-	animation: token .8s ease both;
+	animation: token .5s ease both;
 	display: inline-block;
 }
 #response{
