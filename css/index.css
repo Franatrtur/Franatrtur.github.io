@@ -71,7 +71,7 @@ body{
 	}
 	#content>div{
 		max-width: 60%;
-		width: calc(400px + 20%);
+		width: 500px;
 		margin-left: 5rem;
 	}
 	#content > img{

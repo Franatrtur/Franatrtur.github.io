@@ -82,6 +82,7 @@ body{
 	}
 	#content > img{
 		margin-left: 4rem;
+		height: 60vh;
 	}
 }
 @media (max-width: 800px) {
