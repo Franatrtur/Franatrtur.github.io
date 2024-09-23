@@ -25,7 +25,7 @@ function createImageBall(path, confidence, scale=1){
 		$("#balldetail").addClass("show")
 		$("#detailhdr img").attr("src", path)
 		$("#detailhdr h2").text(name)
-		$(barlength).css({"width": confidence + "%"})
+		setTimeout(()=> $(barlength).css({"width": confidence + "%"}),0)
 
 
 	}).addClass("imgball").css({"--color": "white"}).append(
@@ -41,6 +41,7 @@ function createImageBall(path, confidence, scale=1){
 function closeBallDetails(){
 	$(".ball").removeClass("clicked")
 	$("#balldetail").removeClass("show")
+	$(barlength).css({"width": "0%"})
 }
 
 $("#close").click(closeBallDetails)
