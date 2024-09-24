@@ -105,22 +105,26 @@ class BallsAnimation {
 
 	bounceWall(ball){
 
-		if(ball.x + ball.r >= this.x && ball.v.x > 0){
+		if(ball.x + ball.r >= this.x){
 			ball.x = this.x - ball.r
-			ball.v.x = -ball.v.x
+			if(ball.v.x > 0)
+				ball.v.x = -ball.v.x
 		}
-		else if (ball.x - ball.r <= 0 && ball.v.x < 0){
+		else if (ball.x - ball.r <= 0){
 			ball.x = ball.r
-			ball.v.x = -ball.v.x
+			if(ball.v.x < 0)
+				ball.v.x = -ball.v.x
 		}
 
-		if(ball.y + ball.r >= this.y && ball.v.y > 0){
+		if(ball.y + ball.r >= this.y){
 			ball.y = this.y - ball.r
-			ball.v.y = -ball.v.y
+			if(ball.v.y > 0)
+				ball.v.y = -ball.v.y
 		}
-		else if(ball.y - ball.r <= 0 && ball.v.y < 0){
+		else if(ball.y - ball.r <= 0){
 			ball.y = ball.r
-			ball.v.y = -ball.v.y
+			if(ball.v.y < 0)
+				ball.v.y = -ball.v.y
 		}
 	}
 }
@@ -136,7 +140,7 @@ class Ball {
 		return this.link($(`<div class="ball"></div>`).css({
 			"width": `${2*this.r}px`,
 			"height": `${2*this.r}px`,
-			"border-radius": `${this.r*2}px`
+			"border-radius": `${this.r*5}px`
 		}))
 	}
 	link(element){
