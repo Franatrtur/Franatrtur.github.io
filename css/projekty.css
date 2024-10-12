@@ -139,4 +139,7 @@ footer > div{
 	#content h2{
 		padding-bottom: 0;
 	}
+	#content section .image img{
+		max-width: 400px;
+	}
 }
